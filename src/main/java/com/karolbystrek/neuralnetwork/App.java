@@ -10,8 +10,10 @@ public class App {
 
     public static void main(String[] args) {
         DataPoint[] trainingData;
+        DataPoint[] testData;
         try {
             trainingData = MnistDataReader.readData("data/MNIST/train-images.idx3-ubyte", "data/MNIST/train-labels.idx1-ubyte");
+            testData = MnistDataReader.readData("data/MNIST/t10k-images.idx3-ubyte", "data/MNIST/t10k-images.idx3-ubyte");
         } catch (IOException e) {
             System.err.println("Error reading training data: " + e.getMessage());
             return;
@@ -21,7 +23,7 @@ public class App {
 
         int correctPredictions = 0;
         int totalPredictions = 0;
-        for (DataPoint dataPoint : trainingData) {
+        for (DataPoint dataPoint : testData) {
             float[] output = model.predict(dataPoint);
             float[] expectedOutput = dataPoint.getExpectedOutput();
             int predictedLabel = getPredictedLabel(output);
